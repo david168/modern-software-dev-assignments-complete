@@ -1,0 +1,10 @@
+[project]
+name = "weather"
+version = "0.1.0"
+description = "MCP server exposing US National Weather Service alerts and forecasts (Week 3 study artifact)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.2",
+    "httpx>=0.27",
+]
