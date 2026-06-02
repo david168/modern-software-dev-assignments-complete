@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "stock-momentum": {
+      "command": "/Users/davidlai/.local/bin/uv",
+      "args": [
+        "--directory",
+        "/Users/davidlai/projects/modern-software-dev-assignments/week3/server",
+        "run",
+        "stock_momentum.py"
+      ]
+    }
+  }
+}
