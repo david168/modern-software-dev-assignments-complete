@@ -25,7 +25,9 @@ def list_items(
 
     sort_field = sort.lstrip("-")
     order_fn = desc if sort.startswith("-") else asc
-    if hasattr(ActionItem, sort_field):
+    # Only allow sorting by real, allowlisted columns to prevent injection.
+    sortable = {c.name for c in ActionItem.__table__.columns}
+    if sort_field in sortable:
         stmt = stmt.order_by(order_fn(getattr(ActionItem, sort_field)))
     else:
         stmt = stmt.order_by(desc(ActionItem.created_at))

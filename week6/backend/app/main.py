@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -19,9 +20,19 @@ Path("data").mkdir(parents=True, exist_ok=True)
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 
+# Restrict CORS to known origins. A wildcard "*" is insecure and, combined with
+# allow_credentials=True, is rejected by browsers. Override via the
+# CORS_ALLOW_ORIGINS env var (comma-separated) for other environments.
+_default_origins = "http://localhost:8000,http://127.0.0.1:8000"
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("CORS_ALLOW_ORIGINS", _default_origins).split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
