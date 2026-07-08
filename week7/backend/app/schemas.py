@@ -3,6 +3,20 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
+class TagCreate(BaseModel):
+    name: str
+
+
+class TagRead(BaseModel):
+    id: int
+    name: str
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
 class NoteCreate(BaseModel):
     title: str
     content: str
@@ -14,6 +28,7 @@ class NoteRead(BaseModel):
     content: str
     created_at: datetime
     updated_at: datetime
+    tags: list[TagRead] = []
 
     class Config:
         from_attributes = True
